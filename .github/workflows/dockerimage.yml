@@ -1,0 +1,27 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+
+  build_alpine:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build Alpine Octoprint Image
+      run: docker build . --file ./alpine/Dockerfile --tag octoprint-docker:alpine-$(date +%s)
+
+  build_debian:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build Debian Octoprint Image
+      run: docker build . --file ./debian/Dockerfile --tag octoprint-docker:debian-$(date +%s)
